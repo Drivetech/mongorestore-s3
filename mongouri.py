@@ -14,7 +14,7 @@ else:
   host = '-h %s:%s' % (data['nodelist'][0][0], data['nodelist'][0][1])
   dbname = '-d %s' % data['database'] if os.environ.get('MONGO_COMPLETE') is None else ''
   COLLECTIONS = os.environ.get('COLLECTIONS')
-  collections = '' if COLLECTIONS is None else '-c %s' % c for c in COLLECTIONS.split(',')
+  collections = '' if COLLECTIONS is None else ' '.join(['-c %s' % c for c in COLLECTIONS.split(',')])
   options = '%s %s %s %s' % (auth, host, dbname, collections)
 
   print options
