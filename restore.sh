@@ -9,7 +9,13 @@ aws s3 cp "s3://${S3_BUCKET}/${S3_PATH}/${BACKUP_NAME}" "/backup/${BACKUP_NAME}"
 cd /backup/ && tar xzvf $BACKUP_NAME
 
 # Run backup
-mongorestore ${OPTIONS} "/backup/dump/${DB_NAME}"
+if [ -n "${COLLECTIONS}" ]; then
+  echo $COLLECTIONS | sed -n 1'p' | tr ',' '\n' | while read collection; do
+    mongorestore ${OPTIONS} -c ${collection} "/backup/dump/${DB_NAME}/${collection}.bson"
+  done
+else
+  mongorestore ${OPTIONS} "/backup/dump/${DB_NAME}"
+fi
 
 # Delete temp files
 rm -rf /tmp/dump
