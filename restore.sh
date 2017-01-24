@@ -2,7 +2,6 @@
 
 OPTIONS=`python /usr/local/bin/mongouri`
 DB_NAME=`python /usr/local/bin/mongouri database`
-EXTRA_OPTIONS=${EXTRA:-}
 
 IFS=","
 for BACKUP_NAME in $BACKUP_NAMES
@@ -16,12 +15,12 @@ do
   if [ -n "${COLLECTIONS}" ]; then
     for COLLECTION in $COLLECTIONS
     do
-      echo "mongorestore" ${OPTIONS} -c ${COLLECTION} ${EXTRA_OPTIONS} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
-      mongorestore ${OPTIONS} -c ${COLLECTION} ${EXTRA_OPTIONS} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
+      echo "mongorestore" ${OPTIONS} -c ${COLLECTION} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
+      mongorestore ${OPTIONS} -c ${COLLECTION} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
     done
   else
-    echo "mongorestore" ${OPTIONS} ${EXTRA_OPTIONS} "/backup/dump/${DB_NAME}"
-    mongorestore ${OPTIONS} ${EXTRA_OPTIONS} "/backup/dump/${DB_NAME}"
+    echo "mongorestore" ${OPTIONS} "/backup/dump/${DB_NAME}"
+    mongorestore ${OPTIONS} "/backup/dump/${DB_NAME}"
   fi
 
   # Delete temp files
