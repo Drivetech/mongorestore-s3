@@ -11,7 +11,7 @@ Restore complete database from backup 2016-09-20_06-00-00_UTC.gz in s3
 ```bash
 docker run -d --name mongorestore \
   -v /tmp/backup:/backup
-  -e "BACKUP_NAME=2016-09-20_06-00-00_UTC.gz"
+  -e "BACKUP_NAMES=2016-09-20_06-00-00_UTC.gz"
   -e "MONGO_URI=mongodb://user:pass@host:port/dbname"
   -e "AWS_ACCESS_KEY_ID=your_aws_access_key"
   -e "AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key"
@@ -25,7 +25,7 @@ Restore only collections collection1 and collection2 from backup 2016-09-20_06-0
 ```bash
 docker run -d --name mongorestore \
   -v /tmp/backup:/backup
-  -e "BACKUP_NAME=2016-09-20_06-00-00_UTC.gz"
+  -e "BACKUP_NAMES=2016-09-20_06-00-00_UTC.gz"
   -e "MONGO_URI=mongodb://user:pass@host:port/dbname"
   -e "AWS_ACCESS_KEY_ID=your_aws_access_key"
   -e "AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key"
@@ -40,7 +40,7 @@ Restore complete database from backup 2016-09-20_06-00-00_UTC.gz in s3 with "--n
 ```bash
 docker run -d --name mongorestore \
   -v /tmp/backup:/backup
-  -e "BACKUP_NAME=2016-09-20_06-00-00_UTC.gz"
+  -e "BACKUP_NAMES=2016-09-20_06-00-00_UTC.gz"
   -e "MONGO_URI=mongodb://user:pass@host:port/dbname"
   -e "AWS_ACCESS_KEY_ID=your_aws_access_key"
   -e "AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key"
