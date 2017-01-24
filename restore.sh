@@ -16,9 +16,11 @@ do
   if [ -n "${COLLECTIONS}" ]; then
     for COLLECTION in $COLLECTIONS
     do
+      echo "mongorestore" ${OPTIONS} -c ${COLLECTION} ${EXTRA_OPTIONS} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
       mongorestore ${OPTIONS} -c ${COLLECTION} ${EXTRA_OPTIONS} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
     done
   else
+    echo "mongorestore" ${OPTIONS} ${EXTRA_OPTIONS} "/backup/dump/${DB_NAME}"
     mongorestore ${OPTIONS} ${EXTRA_OPTIONS} "/backup/dump/${DB_NAME}"
   fi
 
