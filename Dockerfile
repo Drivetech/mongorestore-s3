@@ -1,11 +1,10 @@
-FROM alpine:edge
+FROM alpine:3.6
 
 LABEL maintainer "Leonardo Gatica <lgatica@protonmail.com>"
 
 ENV S3_PATH=mongodb AWS_DEFAULT_REGION=us-east-1
 
-RUN echo http://dl-4.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-  apk add --no-cache mongodb-tools py2-pip && \
+RUN apk add --no-cache mongodb-tools py2-pip && \
   pip install pymongo awscli && \
   mkdir /backup
 
