@@ -2,6 +2,8 @@
 
 [![dockeri.co](http://dockeri.co/image/lgatica/mongorestore-s3)](https://hub.docker.com/r/lgatica/mongorestore-s3/)
 
+[![Build Status](https://travis-ci.org/lgaticaq/mongorestore-s3.svg?branch=master)](https://travis-ci.org/lgaticaq/mongorestore-s3)
+
 > Docker Image with Alpine Linux, mongorestore and awscli for restore mongo backup from s3
 
 ## Use

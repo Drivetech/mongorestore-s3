@@ -1,0 +1,14 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build -t lgatica/mongorestore-s3:latest .
+
+script:
+  - docker run --rm lgatica/mongorestore-s3:latest mongorestore --version
+
+after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push lgatica/mongorestore-s3:latest
