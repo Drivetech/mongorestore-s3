@@ -8,23 +8,20 @@ for BACKUP_NAME in $BACKUP_NAMES
 do
   # Download backup
   aws s3 cp "s3://${S3_BUCKET}/${S3_PATH}/${BACKUP_NAME}" "/backup/${BACKUP_NAME}"
-  # Decompress backup
-  cd /backup/ && tar xzvf $BACKUP_NAME
+  # Decompress backup with progress
+  cd /backup/ && pv $BACKUP_NAME | tar xzf - -C .
 
   # Run backup
   if [ -n "${COLLECTIONS}" ]; then
     for COLLECTION in $COLLECTIONS
     do
-      echo "mongorestore" ${OPTIONS} -c ${COLLECTION} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
-      mongorestore ${OPTIONS} -c ${COLLECTION} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
+      echo "mongorestore -v ${OPTIONS} -c ${COLLECTION} /backup/dump/${DB_NAME}/${COLLECTION}.bson"
+      mongorestore -v ${OPTIONS} -c ${COLLECTION} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
     done
   else
-    echo "mongorestore" ${OPTIONS} "/backup/dump/${DB_NAME}"
-    mongorestore ${OPTIONS} "/backup/dump/${DB_NAME}"
+    echo "mongorestore -v ${OPTIONS} /backup/dump/${DB_NAME}"
+    mongorestore -v ${OPTIONS} "/backup/dump/${DB_NAME}"
   fi
-
-  # Delete temp files
-  rm -rf /tmp/dump
 
   # Delete backup files
   rm -rf /backup/*
