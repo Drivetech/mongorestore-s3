@@ -15,12 +15,14 @@ do
   if [ -n "${COLLECTIONS}" ]; then
     for COLLECTION in $COLLECTIONS
     do
-      echo "mongorestore -v ${OPTIONS} -c ${COLLECTION} /backup/dump/${DB_NAME}/${COLLECTION}.bson"
-      mongorestore -v ${OPTIONS} -c ${COLLECTION} "/backup/dump/${DB_NAME}/${COLLECTION}.bson"
+      cmd="mongorestore -v ${OPTIONS} -c ${COLLECTION} /backup/dump/${DB_NAME}/${COLLECTION}.bson"
+      echo $cmd
+      eval $cmd
     done
   else
-    echo "mongorestore -v ${OPTIONS} /backup/dump/${DB_NAME}"
-    mongorestore -v ${OPTIONS} "/backup/dump/${DB_NAME}"
+    cmd="mongorestore -v ${OPTIONS} /backup/dump/${DB_NAME}"
+    echo $cmd
+    eval $cmd
   fi
 
   # Delete backup files
