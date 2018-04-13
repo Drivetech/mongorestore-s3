@@ -9,9 +9,15 @@ install:
 script:
   - docker run --rm lgatica/mongorestore-s3:latest mongorestore --version
 
-after_success:
+before_deploy:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push lgatica/mongorestore-s3:latest
+  
+deploy:
+  provider: script
+  script: docker push lgatica/mongorestore-s3:latest
+  skip_cleanup: true
+  on:
+    branch: master
 
 notifications:
   email: false
